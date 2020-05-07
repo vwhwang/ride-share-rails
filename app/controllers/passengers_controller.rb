@@ -26,6 +26,8 @@ class PassengersController < ApplicationController
     end 
   end 
 
-  
+  def new 
+    # @passenger = Passenger.new
+  end 
 
 end
