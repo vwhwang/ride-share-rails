@@ -1,0 +1,12 @@
+<h2>All Passengers</h2>
+<ul>
+
+<% if @passengers.length > 0  %>
+  <% @passengers.each do |passenger| %>
+    <li>passenger id:<%= passenger[:id] %>,name:<%= passenger[:name]%>, phone num: </li>
+  <% end  %>
+<% else %>
+  <li>NO PASSENGERS</li>
+<% end %>
+
+</ul>

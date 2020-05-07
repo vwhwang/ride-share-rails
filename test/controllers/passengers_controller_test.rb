@@ -1,12 +1,22 @@
 require "test_helper"
-# testing comment vicki 
+
 describe PassengersController do
+
   describe "index" do
-    # Your tests go here
+    it "responses to get" do
+      get passengers_path 
+
+      must_respond_with :success 
+    end 
   end
 
   describe "show" do
-    # Your tests go here
+    it "responses to get id" do 
+      valid_id = 1 
+      get passenger_path(valid_id)
+
+      must_respond_with :success
+    end 
   end
 
   describe "new" do
