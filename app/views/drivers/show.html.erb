@@ -1,0 +1,10 @@
+<nav>
+  <div><%= link_to "View Drivers", drivers_path%></div>
+</nav>
+<h1>Driver's Detail</h1>
+<section>
+  <%= @driver[:id]%>
+  <%= @driver[:name]%>
+  <%= @driver[:vin]%>
+  <%= @driver[:available]%>
+</section>
