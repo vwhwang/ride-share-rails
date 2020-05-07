@@ -18,10 +18,18 @@ describe PassengersController do
 
     it "responses to get id" do 
       valid_id = @passenger.id
-      
+
       get passenger_path(valid_id)
 
       must_respond_with :success
+    end 
+
+    it "if invalid passenger id, redirects to all passengers" do 
+      in_valid_id = -1
+      
+      get passenger_path(in_valid_id)
+
+      must_redirect_to passengers_path
     end 
   end
 
