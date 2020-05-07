@@ -1,0 +1,18 @@
+<h1>List of Drivers</h1>
+<nav> <%= link_to "Create new driver", new_driver_path %>
+</nav>
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>VIN #</th>
+    <th>Status</th>
+  </tr>
+  <% @drivers.each do |driver| %>
+  <tr>
+    <th><%= driver[:id] %></th>
+    <th><%= link_to driver[:name], driver_path(driver[:id]) %></th>
+    <th><%= driver[:vin] %></th>
+    <th><%= driver[:available] ? "Available" : "Unavailable" %></th>
+  <% end %>
+</table>

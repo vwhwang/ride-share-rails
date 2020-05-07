@@ -1,0 +1,14 @@
+<nav>
+  <div><%= link_to "View Drivers", drivers_path%></div>
+</nav>
+<h1>Driver's Detail</h1>
+<p> <%= link_to "Edit Driver", edit_driver_path %></p>
+<p> <%= link_to "Delete Driver", driver_path(@driver.id) ,method: :delete %></p>
+<section>
+<ul>
+  <li><%= @driver[:id]%></li>
+  <li><%= @driver[:name]%></li>
+  <li><%= @driver[:vin]%></li>
+  <li><%= @driver[:available]%></li>
+</ul> 
+</section>

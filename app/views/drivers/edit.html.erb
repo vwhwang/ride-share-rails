@@ -1,0 +1,11 @@
+<h3>Please provide the following information to edit the driver in our database:
+</h3>
+<%= form_with model: @driver do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :vin %>
+  <%= f.text_field :vin %>
+
+  <%= f.submit %>
+<% end %>
