@@ -1,24 +1,13 @@
-PASSENGERS = [{
-  id: 1,
-  name: "vicki",
-  phone_num: "206-333-4444"
-},
-{
-  id: 2,
-  name: "andrew",
-  phone_num: "206-333-4444"
-},
-]
 
 class PassengersController < ApplicationController
 
   def index
-    @passengers = PASSENGERS
+    @passengers = Passenger.all.order(:id)
   end 
 
   def show 
-    passenger_id = params[:id].to_i
-    @passenger = PASSENGERS[passenger_id]
+    passenger_id = params[:id]
+    @passenger = Passenger.find_by(id: passenger_id)
 
     if @passenger.nil? 
       head :not_found 
@@ -27,7 +16,7 @@ class PassengersController < ApplicationController
   end 
 
   def new 
-    # @passenger = Passenger.new
+    @passenger = Passenger.new
   end 
 
 end

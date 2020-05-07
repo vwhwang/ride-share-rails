@@ -11,8 +11,14 @@ describe PassengersController do
   end
 
   describe "show" do
+
+    before do 
+      @passenger = Passenger.create(name: "BoB", phone_num:"XXX-XXX-OOOO")
+    end 
+
     it "responses to get id" do 
-      valid_id = 1 
+      valid_id = @passenger.id
+      
       get passenger_path(valid_id)
 
       must_respond_with :success
