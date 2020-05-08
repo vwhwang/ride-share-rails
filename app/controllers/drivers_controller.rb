@@ -66,6 +66,27 @@ class DriversController < ApplicationController
   end
 
   # TODO change_status & patch route.
+  def change_availability
+    @driver = Driver.find_by(id: params[:id])
+
+    if @driver.nil?
+      head :not_found
+      return
+    elsif @driver.available
+      # @driver.available = false
+      @driver.update(available: false)
+      redirect_to driver_path(@driver.id)
+      return
+    elsif !@driver.available
+      # @driver.available = true
+      @driver.update(available: true)
+      redirect_to driver_path(@driver.id)
+      return
+    else
+      render :show
+      return
+    end
+  end
 
   private
 
