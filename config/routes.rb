@@ -5,5 +5,5 @@ Rails.application.routes.draw do
 
   patch '/drivers/:id', to:  'drivers#change_availability', as: 'change_availability'
   resources :drivers
-  
+
 end
