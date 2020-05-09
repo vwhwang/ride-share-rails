@@ -102,54 +102,76 @@ describe DriversController do
   end
   
   describe "edit" do
-    it "responds with success when getting the edit page for an existing, valid driver" do
-      # Arrange
-      # Ensure there is an existing driver saved
-
-      # Act
-
-      # Assert
-
+    before do
+      @driver = Driver.create(name: "Areeb Milner", vin: "adadadad345ad", available: true)
     end
 
-    it "responds with redirect when getting the edit page for a non-existing driver" do
-      # Arrange
-      # Ensure there is an invalid id that points to no driver
+    it "responds with success when getting the edit page for an existing, valid driver" do
+      get edit_driver_path(@driver.id)
+      must_respond_with :success
+    end
 
-      # Act
-
-      # Assert
-
+    it "responds with not found when getting the edit page for a non-existing driver" do
+      get edit_driver_path(-1)
+      must_respond_with :not_found
     end
   end
 
   describe "update" do
-    it "can update an existing driver with valid information accurately, and redirect" do
-      # Arrange
-      # Ensure there is an existing driver saved
-      # Assign the existing driver's id to a local variable
-      # Set up the form data
-
-      # Act-Assert
-      # Ensure that there is no change in Driver.count
-
-      # Assert
-      # Use the local variable of an existing driver's id to find the driver again, and check that its attributes are updated
-      # Check that the controller redirected the user
-
+    before do
+      @driver = Driver.create(name: "Areeb Milner", vin: "adadadad345ad", available: true)
+    end
+    let (:new_driver_params) do
+      {
+        driver: {
+          name: "Peter Smith",
+          vin: "909090909erer",
+          available: true
+        },
+      }
+    end
+    let (:new_driver2_params) do
+      {
+        driver: {
+          name: "Peter Smith",
+          vin: "909090909erer",
+          available: false
+        },
+      }
     end
 
+
+    it "can update an existing driver with valid information accurately, and redirect" do
+
+      id = Driver.last.id
+
+      expect{ patch driver_path(id), params: new_driver_params }.wont_change "Driver.count"
+
+      driver = Driver.find_by(id: id)
+      expect(driver.name).must_equal new_driver_params[:driver][:name]
+      expect(driver.vin).must_equal new_driver_params[:driver][:vin]
+      expect(driver.available).must_equal new_driver_params[:driver][:available]
+      must_respond_with  :redirect
+      must_redirect_to driver_path(Driver.last.id)
+    end
+
+    it "can toggle the avaiable between true and false" do
+      id = Driver.last.id
+
+      expect{ put driver_path(id), params: new_driver2_params }.wont_change "Driver.count"
+
+      driver = Driver.find_by(id: id)
+      expect(driver.available).must_equal new_driver2_params[:driver][:available]
+      must_respond_with  :redirect
+      must_redirect_to driver_path(Driver.last.id)
+
+    end 
+
     it "does not update any driver if given an invalid id, and responds with a 404" do
-      # Arrange
-      # Ensure there is an invalid id that points to no driver
-      # Set up the form data
+      id = -1
 
-      # Act-Assert
-      # Ensure that there is no change in Driver.count
-
-      # Assert
-      # Check that the controller gave back a 404
-
+      expect { patch driver_path(id), params: new_driver_params }.wont_change "Driver.count"
+      must_respond_with :not_found
     end
 
     it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
@@ -169,28 +191,25 @@ describe DriversController do
   end
 
   describe "destroy" do
+    before do
+      @driver = Driver.create(name: "Areeb Milner", vin: "adadadad345ad", available: true)
+    end
+
     it "destroys the driver instance in db when driver exists, then redirects" do
       # Arrange
       # Ensure there is an existing driver saved
-
+      id = Driver.last.id
       # Act-Assert
       # Ensure that there is a change of -1 in Driver.count
-
+      expect{ delete driver_path(id)}.must_differ "Driver.count", -1
       # Assert
       # Check that the controller redirects
-
+      must_respond_with :redirect
     end
 
     it "does not change the db when the driver does not exist, then responds with " do
-      # Arrange
-      # Ensure there is an invalid id that points to no driver
-
-      # Act-Assert
-      # Ensure that there is no change in Driver.count
-
-      # Assert
-      # Check that the controller responds or redirects with whatever your group decides
-
+      delete driver_path(-1)
+      must_respond_with :not_found
     end
   end
 end
