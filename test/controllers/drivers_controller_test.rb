@@ -7,21 +7,26 @@ describe DriversController do
     it "responds with success when there are many drivers saved" do
       # Arrange
       # Ensure that there is at least one Driver saved
-
+      driver = Driver.create(
+        name: "Areeb Milner",
+        vin: "adadadad345ad",
+        available: true
+      )
       # Act
-
+      get drivers_path
       # Assert
-
+      must_respond_with :success
     end
 
     it "responds with success when there are no drivers saved" do
       # Arrange
       # Ensure that there are zero drivers saved
-
+      num_of_dirvers = Driver.all.size
       # Act
-
+      get drivers_path
       # Assert
-
+      must_respond_with :success
+      expect(num_of_dirvers).must_equal 0
     end
   end
 
@@ -29,26 +34,32 @@ describe DriversController do
     it "responds with success when showing an existing valid driver" do
       # Arrange
       # Ensure that there is a driver saved
-
+      driver = Driver.create(
+        name: "Areeb Milner",
+        vin: "adadadad345ad",
+        available: true
+      )
       # Act
-
+      get driver_path(driver.id)
       # Assert
-
+      must_respond_with :success
     end
 
     it "responds with 404 with an invalid driver id" do
       # Arrange
       # Ensure that there is an id that points to no driver
-
+      invalid_id = -1
       # Act
-
+      get driver_path(-1)
       # Assert
-
+      must_respond_with :not_found
     end
   end
 
   describe "new" do
     it "responds with success" do
+      get "/drivers/new"
+      must_respond_with :success
     end
   end
 
@@ -56,14 +67,24 @@ describe DriversController do
     it "can create a new driver with valid information accurately, and redirect" do
       # Arrange
       # Set up the form data
-
+      driver_hash = {
+        driver: {
+          name: "Areeb Milner",
+          vin: "adadadad345ad",
+          available: true
+        }
+      }
       # Act-Assert
       # Ensure that there is a change of 1 in Driver.count
-
+      expect { post drivers_path, params: driver_hash}.must_differ "Driver.count", 1
       # Assert
       # Find the newly created Driver, and check that all its attributes match what was given in the form data
+      expect(Driver.last.name).must_equal driver_hash[:driver][:name]
+      expect(Driver.last.vin).must_equal driver_hash[:driver][:vin]
+      expect(Driver.last.available).must_equal driver_hash[:driver][:available]
       # Check that the controller redirected the user
-
+      must_respond_with  :redirect
+      must_redirect_to driver_path(Driver.last.id)
     end
 
     it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
