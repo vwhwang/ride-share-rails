@@ -8,5 +8,17 @@ class Passenger < ApplicationRecord
     end  
     return "$#{ '%.2f' % total}"
   end 
-  
+
+  def add_trip
+
+    @new_trip = Trip.new
+    @new_trip.passenger = self
+    @new_trip.date = DateTime.now
+    @new_trip.cost = 0 
+    @new_trip.assign_driver
+    @new_trip.save
+
+    Trip.last.driver.update(available:false)
+    
+  end 
 end

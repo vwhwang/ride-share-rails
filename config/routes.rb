@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   patch '/drivers/:id', to:  'drivers#change_availability', as: 'change_availability'
   resources :drivers
 
+  post '/passengers/:id', to: 'passengers#addtrip', as: 'addtrip'
+
 end
