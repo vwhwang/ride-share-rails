@@ -13,9 +13,33 @@
 
 <section>
 <ul>
-  <li><%= @driver[:id]%></li>
-  <li><%= @driver[:name]%></li>
-  <li><%= @driver[:vin]%></li>
-  <li><%= @driver[:available] ? "Available" : "Unavailable" %></li>
+  <li>Driver's ID: <%= @driver[:id]%></li>
+  <li>Name: <%= @driver[:name]%></li>
+  <li>VIN: <%= @driver[:vin]%></li>
+  <li>Status: <%= @driver[:available] ? "Available" : "Unavailable" %></li>
+  <li>Average Rating:<%= @driver.average_rating %></li>
+  <li>Total Earning:<%= @driver.total_earning %></li> 
 </ul> 
 </section>
+
+<table>
+  <tr>
+    <th>Trip ID</th>
+    <th>Trip Date</th>
+    <th>Passenger Name</th>
+    <th>Driver Name</th>
+    <th>Rating</th>
+    <th>Cost</th>
+  </tr>
+  <% @driver.trips.each do |trip|  %>
+  <tr>
+    <td> <%= trip.id %></td>
+    <td> <%= trip.date.strftime("%Y-%m-%d") %></td>
+    <td> <%= link_to trip.passenger.name, passenger_path(trip.passenger.id) %></td>
+    <td> <%= link_to @driver.name, driver_path(@driver.id) %></td>
+    <td> <%= trip.rating %></td>
+    <td> $<%= '%.2f' % trip.cost %></td>
+  </tr>
+  <% end  %>
+</table>
+
