@@ -13,11 +13,12 @@
 
 <section>
 <ul>
-  <li><%= @driver[:id]%></li>
-  <li><%= @driver[:name]%></li>
-  <li><%= @driver[:vin]%></li>
-  <li><%= @driver[:available] ? "Available" : "Unavailable" %></li>
-  <li><%= @driver.average_rating %></li>
+  <li>Driver's ID: <%= @driver[:id]%></li>
+  <li>Name: <%= @driver[:name]%></li>
+  <li>VIN: <%= @driver[:vin]%></li>
+  <li>Status: <%= @driver[:available] ? "Available" : "Unavailable" %></li>
+  <li>Average Rating:<%= @driver.average_rating %></li>
+  <li>Total Earning:<%= @driver.total_earning %></li> 
 </ul> 
 </section>
 
