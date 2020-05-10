@@ -83,7 +83,7 @@ describe DriversController do
       expect(Driver.last.vin).must_equal driver_hash[:driver][:vin]
       expect(Driver.last.available).must_equal driver_hash[:driver][:available]
       # Check that the controller redirected the user
-      must_respond_with  :redirect
+      must_respond_with :redirect
       must_redirect_to driver_path(Driver.last.id)
     end
 
@@ -91,13 +91,16 @@ describe DriversController do
       # Note: This will not pass until ActiveRecord Validations lesson
       # Arrange
       # Set up the form data so that it violates Driver validations
-
+      driver_hash = {
+        driver: {
+          available: true
+        }
+      }
       # Act-Assert
       # Ensure that there is no change in Driver.count
-
+      expect { post drivers_path, params: driver_hash }.wont_change "Driver.count", 0
       # Assert
       # Check that the controller redirects
-
     end
   end
   
@@ -139,6 +142,13 @@ describe DriversController do
         },
       }
     end
+    let (:new_driver3_params) do
+      {
+        driver: {
+          available: true,
+        },
+      }
+    end
 
 
     it "can update an existing driver with valid information accurately, and redirect" do
@@ -155,10 +165,17 @@ describe DriversController do
       must_redirect_to driver_path(Driver.last.id)
     end
 
+    it "does not update any driver if given an invalid id, and responds with a 404" do
+      id = -1
+
+      expect { patch driver_path(id), params: new_driver_params }.wont_change "Driver.count"
+      must_respond_with :not_found
+    end
+
     it "can toggle the avaiable between true and false" do
       id = Driver.last.id
 
-      expect{ put driver_path(id), params: new_driver2_params }.wont_change "Driver.count"
+      expect{ patch change_availability_path(id), params: new_driver2_params }.wont_change "Driver.count"
 
       driver = Driver.find_by(id: id)
       expect(driver.available).must_equal new_driver2_params[:driver][:available]
@@ -167,26 +184,18 @@ describe DriversController do
 
     end 
 
-    it "does not update any driver if given an invalid id, and responds with a 404" do
-      id = -1
-
-      expect { patch driver_path(id), params: new_driver_params }.wont_change "Driver.count"
-      must_respond_with :not_found
-    end
-
-    it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
+    it "does not update a driver if the form data violates Driver validations, and responds with a redirect" do
       # Note: This will not pass until ActiveRecord Validations lesson
       # Arrange
       # Ensure there is an existing driver saved
       # Assign the existing driver's id to a local variable
       # Set up the form data so that it violates Driver validations
-
+      id = Driver.last.id
       # Act-Assert
       # Ensure that there is no change in Driver.count
-
+      expect { patch driver_path(id), params: new_driver3_params }.wont_change "Driver.count", 0
       # Assert
       # Check that the controller redirects
-
     end
   end
 
