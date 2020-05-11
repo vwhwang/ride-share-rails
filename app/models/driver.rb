@@ -6,6 +6,7 @@ class Driver < ApplicationRecord
   def average_rating
     total_rating = 0.00
     count = 0
+    return total_rating if self.trips == []
     self.trips.each do |trip|
       if trip.rating
         total_rating += trip.rating
