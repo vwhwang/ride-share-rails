@@ -8,6 +8,22 @@ class TripsController < ApplicationController
     end
   end
 
+  def new 
+    if params[:passenger_id]
+      passenger = Passenger.find_by(id: params[:passenger_id])
+      @trip = passenger.trips.new
+      @trip.assign_driver
+      @trip.date = DateTime.now
+      @trip.cost = rand() * 100 
+      @trip.save
+      
+      Trip.last.driver.update(available:false)
+      redirect_to passenger_path(@trip.passenger_id)
+    else 
+      head :not_found
+    end 
+  end 
+
   def edit
     @trip = Trip.find_by(id: params[:id])
 

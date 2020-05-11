@@ -71,14 +71,6 @@ class PassengersController < ApplicationController
 
   end 
 
-  def addtrip
-    @passenger = Passenger.find_by(id: params[:id])
-    @passenger.add_trip
-    @passenger.save
-    redirect_to passenger_path(@passenger.id)
-  end 
-
-
   private 
 
   def passenger_params 
