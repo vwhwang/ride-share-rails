@@ -1,9 +1,9 @@
 require "test_helper"
 
 describe WelcomeController do
-  it "can get the homepage" do
-    get root_path
-
+  it "must get index" do
+    get welcome_index_url
     must_respond_with :success
   end
+
 end

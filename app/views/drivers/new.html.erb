@@ -1,18 +1,2 @@
 <h1>Create New Driver</h1>
-<% if @driver.errors.any? %>
-  <ul>
-    <% @driver.errors.each do |column, message| %>
-      <li><%= column.capitalize %> <%= message %></li>
-    <% end %>  
-  </ul>
-<% end %>
-
-<%= form_with model: @driver do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-
-  <%= f.label :vin %>
-  <%= f.text_field :vin %>
-
-  <%= f.submit %>
-<% end %>
+<%= render partial: "form", locals: {action_button: "New"}%>

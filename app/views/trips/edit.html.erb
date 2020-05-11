@@ -1,0 +1,22 @@
+<% if @trip.errors.any? %>
+  <ul>
+    <% @trip.errors.each do |column, message| %>
+      <li><%= column.capitalize %> <%= message %></li>
+    <% end %>  
+  </ul>
+<% end %>
+
+
+<%= form_with model: @trip do |f| %>
+  <%= f.label :date %>
+  <%= f.date_field :date %>
+
+  <%= f.label :cost %>
+  <%= f.text_field :cost %>
+
+  <%= f.label :rating %>
+  <%# <%= f.text_field :rating %>
+  <%= f.select(:rating, 1..5) %>
+
+  <%= f.submit "Edit Trip"%>
+<% end %>
