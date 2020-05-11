@@ -23,7 +23,7 @@ class TripsController < ApplicationController
     if @trip.nil?
       head :not_found
       return
-    # elsif @trip.update(driver_params)
+    elsif @trip.update(trip_params)
       redirect_to trip_path(@trip.id)
       return
     else
@@ -43,5 +43,11 @@ class TripsController < ApplicationController
       redirect_to passengers_path
       return
     end
+  end
+
+  private
+
+  def trip_params
+    return params.require(:trip).permit(:date, :rating, :cost)
   end
 end
