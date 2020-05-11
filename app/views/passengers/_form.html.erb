@@ -1,3 +1,11 @@
+<% if @passenger.errors.any? %>
+  <ul>
+  <% @passenger.errors.each do |column, message| %>
+    <li><%= column.capitalize %> <%= message %></li>
+  <% end  %>
+  </ul>
+<%end  %>
+
 <%= form_with model:@passenger, class:'passenger-form' do |f| %>
   <p>Please provide the following information for a new passenger:</p>
   <%= f.label :name %>
