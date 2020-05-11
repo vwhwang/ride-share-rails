@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   get 'welcome/index', to: 'welcome#index', as: 'welcome'
   root to: 'welcome#index'
   resources :passengers 
-  # resources :passengers do 
-  #   resources :trips , only: [:new]
-  # end 
+  
+  resources :passengers do 
+    resources :trips , only: [:new]
+  end 
 
 
-  post '/passengers/:id', to: 'passengers#addtrip', as: 'addtrip'
+  # post '/passengers/:id', to: 'passengers#addtrip', as: 'addtrip'
 
   resources :drivers
   patch '/drivers/:id/change_availability', to:  'drivers#change_availability', as: 'change_availability'

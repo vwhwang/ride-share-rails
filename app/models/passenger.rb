@@ -11,16 +11,4 @@ class Passenger < ApplicationRecord
     return "$#{ '%.2f' % total}"
   end 
 
-  def add_trip
-    puts "passenger add trip"
-    @new_trip = Trip.new
-    @new_trip.passenger = self
-    @new_trip.date = DateTime.now
-    @new_trip.cost = rand() * 100 
-    @new_trip.assign_driver
-    @new_trip.save
-
-    Trip.last.driver.update(available:false)
-    
-  end 
 end
