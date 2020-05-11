@@ -72,6 +72,7 @@ class PassengersController < ApplicationController
   end 
 
   def addtrip
+    puts "add trip "
     @passenger = Passenger.find_by(id: params[:id])
     @passenger.add_trip
     @passenger.save

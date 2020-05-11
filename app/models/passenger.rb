@@ -12,7 +12,7 @@ class Passenger < ApplicationRecord
   end 
 
   def add_trip
-
+    puts "passenger add trip"
     @new_trip = Trip.new
     @new_trip.passenger = self
     @new_trip.date = DateTime.now
