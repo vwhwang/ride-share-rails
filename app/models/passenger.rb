@@ -1,5 +1,7 @@
 class Passenger < ApplicationRecord
   has_many :trips
+  validates :name ,presence: true 
+  validates :phone_num ,presence: true 
 
   def total_charged
     total = 0 
@@ -14,7 +16,7 @@ class Passenger < ApplicationRecord
     @new_trip = Trip.new
     @new_trip.passenger = self
     @new_trip.date = DateTime.now
-    @new_trip.cost = 0 
+    @new_trip.cost = rand() * 100 
     @new_trip.assign_driver
     @new_trip.save
 

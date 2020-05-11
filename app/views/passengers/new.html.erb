@@ -1,12 +1,4 @@
 <h2>NEW passenger page</h2>
-<%= form_with model:@passenger, class:'passenger-form' do |f| %>
-  <p>Please provide the following information for a new passenger:</p>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
 
-  <%= f.label :phone_num %>
-  <%= f.text_field :phone_num %>
 
-  <%= f.submit "Save Passenger", class:'passenger-button' %>
-
-<% end  %>
+<%= render partial: "form",locals: { action_name: "New" } %>
