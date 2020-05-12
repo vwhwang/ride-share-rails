@@ -24,13 +24,18 @@
     <th>Cost</th>
   </tr>
   <% @passenger.trips.each do |trip|  %>
-  <tr>
-    <td> <%= link_to trip.id, trip_path(trip.id) %></td>
-    <td> <%= trip.date.strftime("%Y-%m-%d") %></td>
-    <td> <%= link_to @passenger.name, passenger_path(@passenger.id) %></td>
-    <td> <%= link_to trip.driver.name, driver_path(trip.driver.id) %></td>
-    <td> <%= trip.rating %></td>
-    <td> $<%= '%.2f' % trip.cost %></td>
-  </tr>
+    <%if trip.driver.nil? || trip.passenger.nil? %>
+
+    <%else  %>
+      <tr>
+        <td> <%= link_to trip.id, trip_path(trip.id) %></td>
+        <td> <%= trip.date.strftime("%Y-%m-%d") %></td>
+        <td> <%= link_to @passenger.name, passenger_path(@passenger.id) %></td>
+        <td> <%= link_to trip.driver.name, driver_path(trip.driver.id) %></td>
+        <td> <%= trip.rating %></td>
+        <td> $<%= '%.2f' % trip.cost %></td>
+      </tr>
+    <%end  %>
   <% end  %>
+
 </table>
