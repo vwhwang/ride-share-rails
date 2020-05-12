@@ -9,10 +9,33 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-<nav>
-hi
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+
+  <%= link_to "Ride Share Home", welcome_path, class:"navbar-brand" %>
+ <ul class="navbar-nav">
+  <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      Drivers 
+      </a>
+      <div class="dropdown-menu">
+      <%= link_to "View Drivers", drivers_path, class:"dropdown-item"   %>
+      <%= link_to "Add a Driver", new_driver_path, class:"dropdown-item"  %>
+      </div>
+  </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+      Passengers 
+      </a>
+      <div class="dropdown-menu">
+        <%= link_to "View Passengers", passengers_path , class:"dropdown-item" %>
+        <%= link_to "Add a Passenger", new_passenger_path, class:"dropdown-item"%>
+      </div>
+  </li>
+ </ul>
 </nav>
+
   <body>
     <%= yield %>
   </body>
 </html>
+
