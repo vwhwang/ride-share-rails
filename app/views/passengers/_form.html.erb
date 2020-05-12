@@ -2,18 +2,22 @@
   <ul>
   <% @passenger.errors.each do |column, message| %>
     <li><%= column.capitalize %> <%= message %></li>
-  <% end  %>
+  <% end %>
   </ul>
-<%end  %>
+<% end %>
 
-<%= form_with model:@passenger, class:'passenger-form' do |f| %>
-  <p>Please provide the following information for a new passenger:</p>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+<form>
+  <%= form_with model:@passenger, class:'passenger-form' do |f| %>
+    <div class="form-group col-md-4">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :phone_num %>
+      <%= f.text_field :phone_num, class: "form-control" %>
+    </div>
+    <%= f.submit "#{action_name} Passenger", class: "btn btn-primary ml-3" %>
+  <% end %>
+</form>
 
-  <%= f.label :phone_num %>
-  <%= f.text_field :phone_num %>
 
-  <%= f.submit action_name %>
-
-<% end  %>
