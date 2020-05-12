@@ -6,7 +6,6 @@
   </ul>
 <% end %>
 
-<form>
   <%= form_with model: @driver do |f| %>
     <div class="form-group col-md-4">
       <%= f.label :name %>
@@ -18,4 +17,3 @@
     </div>
     <%= f.submit "#{action_name} Driver", class: "btn btn-primary ml-3" %>
   <% end %>
-</form>
