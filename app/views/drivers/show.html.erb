@@ -22,14 +22,14 @@
 </ul> 
 </section>
 
-<table>
+<table class="table">
   <tr>
-    <th>Trip ID</th>
-    <th>Trip Date</th>
-    <th>Passenger Name</th>
-    <th>Driver Name</th>
-    <th>Rating</th>
-    <th>Cost</th>
+    <th scope="col">Trip ID</th>
+    <th scope="col">Trip Date</th>
+    <th scope="col">Passenger Name</th>
+    <th scope="col">Driver Name</th>
+    <th scope="col">Rating</th>
+    <th scope="col">Cost</th>
   </tr>
 
 
@@ -39,7 +39,7 @@
 
       <%else  %>
       <tr>
-        <td> <%= trip.id %></td>
+        <td scope="row"> <%= trip.id %></td>
         <td> <%= trip.date.strftime("%Y-%m-%d") %></td>
         <td> <%= link_to trip.passenger.name, passenger_path(trip.passenger.id) %></td>
         <td> <%= link_to @driver.name, driver_path(@driver.id) %></td>
