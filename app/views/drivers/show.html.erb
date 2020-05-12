@@ -1,8 +1,5 @@
 <section class="container mt-3">
 <h2>Driver's Detail</h2>
-<%= link_to "Edit Driver", edit_driver_path,class:"btn btn-info m-3 custom" %>
-<%= link_to "Delete Driver", driver_path(@driver.id) ,method: :delete, data: { confirm: "Are you sure you want to delete this driver?"},class:"btn btn-info m-3 custom" %>
-
 
 <% if @driver.available %>
   <%= link_to "Mark Unavailable", change_availability_path(@driver.id), method: :patch ,class:"btn btn-info m-3 custom"%>
@@ -10,18 +7,23 @@
    <%= link_to "Mark Available", change_availability_path(@driver.id), method: :patch ,class:"btn btn-info m-3 custom"%>
 <% end %>
 
+<%= link_to "Edit Driver", edit_driver_path,class:"btn btn-info m-3 custom" %>
+<%= link_to "Delete Driver", driver_path(@driver.id) ,method: :delete, data: { confirm: "Are you sure you want to delete this driver?"},class:"btn btn-info m-3 custom" %>
 
 <section>
 <ul>
-  <li>Driver's ID: <%= @driver[:id]%></li>
-  <li>Name: <%= @driver[:name]%></li>
-  <li>VIN: <%= @driver[:vin]%></li>
-  <li>Status: <%= @driver[:available] ? "Available" : "Unavailable" %></li>
+  <li>Driver's ID: <%= @driver.id%></li>
+  <li>Name: <%= @driver.name%></li>
+  <li>VIN: <%= @driver.vin%></li>
+  <li>Status: <%= @driver.available ? "Available" : "Unavailable" %></li>
   <li>Average Rating: <%= @driver.average_rating %></li>
-  <li>Total Earning: <%= @driver.total_earning %></li> 
+  <li>Total Earning: $<%= @driver.total_earning %></li> 
 </ul> 
 </section>
 
+<h3>
+  <%= @driver.name %>'s Trips
+</h3>
 <table class="table">
   <tr>
     <th scope="col">Trip ID</th>
@@ -39,7 +41,7 @@
 
       <%else  %>
       <tr>
-        <td scope="row"> <%= trip.id %></td>
+        <td scope="row"> <%= link_to trip.id, trip_path(trip.id) %></td>
         <td> <%= trip.date.strftime("%Y-%m-%d") %></td>
         <td> <%= link_to trip.passenger.name, passenger_path(trip.passenger.id) %></td>
         <td> <%= link_to @driver.name, driver_path(@driver.id) %></td>
