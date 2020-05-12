@@ -1,22 +1,28 @@
-<% if @trip.errors.any? %>
-  <ul>
-    <% @trip.errors.each do |column, message| %>
-      <li><%= column.capitalize %> <%= message %></li>
-    <% end %>  
-  </ul>
-<% end %>
+<section class="container mt-3">
+  <h4>Please provide the following information to edit the trip (ID: <%= @trip.id %>) in our database:</h4>
+
+  <% if @trip.errors.any? %>
+    <ul>
+      <% @trip.errors.each do |column, message| %>
+        <li><%= column.capitalize %> <%= message %></li>
+      <% end %>  
+    </ul>
+  <% end %>
 
 
-<%= form_with model: @trip do |f| %>
-  <%= f.label :date %>
-  <%= f.date_field :date %>
-
-  <%= f.label :cost %>
-  <%= f.text_field :cost %>
-
-  <%= f.label :rating %>
-  <%# <%= f.text_field :rating %>
-  <%= f.select(:rating, 1..5) %>
-
-  <%= f.submit "Edit Trip"%>
-<% end %>
+  <%= form_with model: @trip do |f| %>
+    <div class="form-group col-md-4">
+      <%= f.label :date %>
+      <%= f.date_field :date, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :cost %>
+      <%= f.text_field :cost, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-4">
+      <%= f.label :rating %>
+      <%= f.select(:rating, 1..5, class: "form-control") %>
+    </div>
+    <%= f.submit "Edit Trip", class: "btn btn-primary ml-3"%>
+  <% end %>
+</section>

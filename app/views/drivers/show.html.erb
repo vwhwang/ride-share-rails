@@ -1,3 +1,4 @@
+<section class="container mt-3">
 <nav>
   <div><%= link_to "View Drivers", drivers_path%></div>
 </nav>
@@ -10,6 +11,7 @@
 <% else %>
   <p> <%= link_to "Mark Available", change_availability_path(@driver.id), method: :patch %></p>
 <% end %>
+
 
 <section>
 <ul>
@@ -50,4 +52,5 @@
   <%end  %>
   
 </table>
+</section>
 

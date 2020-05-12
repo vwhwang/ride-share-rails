@@ -1,21 +1,21 @@
 <% if @passenger.errors.any? %>
   <ul>
-  <% @passenger.errors.each do |column, message| %>
-    <li><%= column.capitalize %> <%= message %></li>
-  <% end %>
+    <% @passenger.errors.each do |column, message| %>
+      <li><%= column.capitalize %> <%= message %></li>
+    <% end %>
   </ul>
 <% end %>
 
-  <%= form_with model:@passenger, class:'passenger-form' do |f| %>
-    <div class="form-group col-md-4">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control" %>
-    </div>
-    <div class="form-group col-md-4">
-      <%= f.label :phone_num %>
-      <%= f.text_field :phone_num, class: "form-control" %>
-    </div>
-    <%= f.submit "#{action_name} Passenger", class: "btn btn-primary ml-3" %>
-  <% end %>
+<%= form_with model: @passenger, class:'passenger-form' do |f| %>
+  <div class="form-group col-md-4">
+    <%= f.label :name %>
+    <%= f.text_field :name, class: "form-control" %>
+  </div>
+  <div class="form-group col-md-4">
+    <%= f.label :phone_num %>
+    <%= f.text_field :phone_num, class: "form-control" %>
+  </div>
+  <%= f.submit "#{action_name} Passenger", class: "btn btn-primary ml-3" %>
+<% end %>
 
 
